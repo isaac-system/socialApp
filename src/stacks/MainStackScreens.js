@@ -13,9 +13,9 @@ const MainStackScreens = () => {
 
     const tabBarOptions = {
         showLabel: false,
+        keyboardHidesTabBar: true,
         style: {
             backgroundColor: '#222222',
-            paddingBottom: 12
         }
     }
 

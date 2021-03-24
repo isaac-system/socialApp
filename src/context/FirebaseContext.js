@@ -19,6 +19,7 @@ const Firebase = {
     getCurrentUser: () => {
         return firebase.auth().currentUser
     },
+
     createUser: async (user) => {
         try {
             await firebase.auth().createUserWithEmailAndPassword(user.email, user.password)
@@ -42,7 +43,6 @@ const Firebase = {
 
         } catch (error) {
             console.log("Error @createUser: ", error.message)
-            
         }
     },
 
@@ -109,8 +109,41 @@ const Firebase = {
 
     signIn: async (email, password) => {
         return firebase.auth().signInWithEmailAndPassword(email, password);
+    },
+
+    getLists: (callback) => {
+        const uid = Firebase.getCurrentUser().uid
+        const ref = db.collection('users').doc(uid).collection('lists')
+
+        try {
+            ref.onSnapshot((snapShot) => {
+                const lists = []
+                
+                snapShot.forEach((doc) => {
+                    lists.push({id:doc.id,...doc.data()})
+                })
+                callback(lists)
+            })
+            
+        } catch (error) {   
+            console.log('Error @getLists: ',error)  
+        }
+        
+    },
+
+    updataLists: (list) => {
+        const uid = Firebase.getCurrentUser().uid
+        const ref = db.collection('users').doc(uid).collection('lists')
+        try {
+            ref.doc(list.id).update(list)
+        } catch (error) {
+            console.log('Error @updataLists: ',error)  
+        }
+        
+    
     }
 }
+
 
 const FirebaseProvider = (props) => {
     return <FirebaseContext.Provider value={Firebase}>{props.children}</FirebaseContext.Provider>

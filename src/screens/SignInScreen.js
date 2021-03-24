@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react'
-import { ActivityIndicator, StatusBar, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import { ActivityIndicator, KeyboardAvoidingView, StatusBar, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
 
 import {FirebaseContext} from '../context/FirebaseContext'
 import {UserContext} from '../context/UserContext'
@@ -42,6 +42,7 @@ const SignInScreen = ({navigation}) => {
             <View style={{marginTop:160}}>
                 <Text style={{fontSize:32,fontWeight:'200',alignSelf:'center'}}>Welcome back.</Text>
             </View>
+            
             <View style={{marginVertical:64,marginHorizontal:32}}>
                 <View style={{marginBottom:32}}>
                     <Text style={{
